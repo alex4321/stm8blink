@@ -1,0 +1,25 @@
+#include "stm8s.h"
+
+void initialize() 
+{
+	GPIOD->DDR = 0b00001000;
+	GPIOD->CR1 = 0b00001000;
+	GPIOD->CR2 = 0b00001000;
+}
+
+void delay(uint32_t t) 
+{
+	while (t--);
+}
+
+void main( void )
+{
+	unsigned char value = 0b00000000;
+	initialize();
+    while (1)
+    {
+    	value = value ^ 0b11111111;
+    	GPIOD->ODR = value;
+    	delay(20000);
+    }
+}
